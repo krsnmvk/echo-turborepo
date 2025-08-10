@@ -116,7 +116,7 @@ export default function DashboardSidebar() {
                     tooltip={title}
                     className={cn(
                       isActivePath(url) &&
-                        'bg-gradient-to-b from-sidebar-primary! to-[#0b63f3]! text-secondary-foreground! hover:to-[#0b63f3]/90!'
+                        'bg-gradient-to-b from-sidebar-primary! to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!'
                     )}
                     asChild
                   >
@@ -139,6 +139,10 @@ export default function DashboardSidebar() {
                   <SidebarMenuButton
                     isActive={isActivePath(url)}
                     tooltip={title}
+                    className={cn(
+                      isActivePath(url) &&
+                        'bg-gradient-to-b from-sidebar-primary! to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!'
+                    )}
                     asChild
                   >
                     <Link href={url}>
@@ -160,6 +164,10 @@ export default function DashboardSidebar() {
                   <SidebarMenuButton
                     isActive={isActivePath(url)}
                     tooltip={title}
+                    className={cn(
+                      isActivePath(url) &&
+                        'bg-gradient-to-b from-sidebar-primary! to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!'
+                    )}
                     asChild
                   >
                     <Link href={url}>
