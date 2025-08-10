@@ -1,5 +1,7 @@
-import WidgetFooter from '../components/widget-footer';
-import WidgetHeader from '../components/widget-header';
+'use client';
+
+import { useAtomValue } from 'jotai';
+import { screenAtom } from '../../atoms/widget-atom';
 import WidgetAuthScreen from '../screens/widget-auth-screen';
 
 type Props = {
@@ -7,17 +9,22 @@ type Props = {
 };
 
 export default function WidgetView({ organizationId }: Props) {
+  const screen = useAtomValue(screenAtom);
+
+  const screenComponents = {
+    loading: <p>TODO: loading</p>,
+    error: <p>TODO: error</p>,
+    selection: <p>TODO: selection</p>,
+    voice: <p>TODO: voice</p>,
+    auth: <WidgetAuthScreen />,
+    inbox: <p>TODO: inbox</p>,
+    chat: <p>TODO: chat</p>,
+    contact: <p>TODO: contact</p>,
+  };
+
   return (
     <div className="min-h-screen min-w-screen w-full h-full flex flex-col border bg-muted rounded-xl overflow-hidden">
-      {/* <WidgetHeader>
-        <div className="flex flex-col justify-between gap-y-2 px-2 py-6">
-          <h3 className="text-3xl">Hi There! 👋</h3>
-          <p className="text-lg">How can we help today?</p>
-        </div>
-      </WidgetHeader>
-      <main className="flex flex-1">main: {organizationId}</main> */}
-      <WidgetAuthScreen />
-      {/* <WidgetFooter /> */}
+      {screenComponents[screen]}
     </div>
   );
 }
