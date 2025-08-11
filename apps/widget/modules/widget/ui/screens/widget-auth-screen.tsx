@@ -2,6 +2,7 @@
 
 import * as z from 'zod/v4';
 import WidgetHeader from '../components/widget-header';
+import { useAtomValue, useSetAtom } from 'jotai';
 import {
   Form,
   FormControl,
@@ -16,6 +17,10 @@ import { Button } from '@workspace/ui/components/button';
 import { useMutation } from 'convex/react';
 import { api } from '@workspace/backend/convex/_generated/api';
 import { Doc } from '@workspace/backend/convex/_generated/dataModel';
+import {
+  contactSessionIdAtomFamily,
+  organizationIdAtom,
+} from '../../atoms/widget-atom';
 
 const formScema = z.object({
   name: z
@@ -25,6 +30,12 @@ const formScema = z.object({
 });
 
 export default function WidgetAuthScreen() {
+  const organizationId = useAtomValue(organizationIdAtom);
+
+  const setContactSessionId = useSetAtom(
+    contactSessionIdAtomFamily(organizationId!)
+  );
+
   const form = useForm<z.infer<typeof formScema>>({
     resolver: zodResolver(formScema),
     defaultValues: {
@@ -34,7 +45,6 @@ export default function WidgetAuthScreen() {
   });
 
   const createContactSession = useMutation(api.public.contactSessions.create);
-  const organizationId = '123';
 
   async function onSubmit(values: z.infer<typeof formScema>) {
     if (!organizationId) return;
@@ -60,7 +70,7 @@ export default function WidgetAuthScreen() {
       metadata,
     });
 
-    console.log(contactSessionId);
+    setContactSessionId(contactSessionId);
   }
 
   return (
