@@ -73,6 +73,8 @@ export default function WidgetAuthScreen() {
     setContactSessionId(contactSessionId);
   }
 
+  const isDisabled = form.formState.disabled;
+
   return (
     <>
       <WidgetHeader>
@@ -120,7 +122,12 @@ export default function WidgetAuthScreen() {
               </FormItem>
             )}
           />
-          <Button type="submit" variant="default" size="lg">
+          <Button
+            type="submit"
+            disabled={isDisabled}
+            variant="default"
+            size="lg"
+          >
             Continue
           </Button>
         </form>
