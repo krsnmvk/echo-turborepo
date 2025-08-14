@@ -34,6 +34,9 @@ import {} from '@workspace/ui/components/ai/suggestion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField } from '@workspace/ui/components/form';
+import { useInfiniteScroll } from '@workspace/ui/hooks/use-infinite-scroll';
+import { InfiniteScrollTrigger } from '@workspace/ui/components/infinite-scroll-trigger';
+import { DicebearAvatar } from '@workspace/ui/components/dicebear-avatar';
 
 const formSchema = z.object({
   message: z
@@ -95,6 +98,13 @@ export default function WidgetChatScreen() {
     });
   }
 
+  const { canLoadMore, handleLoadMore, isLoadingMore, topElementRef } =
+    useInfiniteScroll({
+      loadMore: messages.loadMore,
+      status: messages.status,
+      loadSize: 10,
+    });
+
   return (
     <>
       <WidgetHeader>
@@ -119,6 +129,12 @@ export default function WidgetChatScreen() {
       </WidgetHeader>
       <AIConversation>
         <AIConversationContent>
+          <InfiniteScrollTrigger
+            canLoadMore={canLoadMore}
+            isLoadingMore={isLoadingMore}
+            onLoadMore={handleLoadMore}
+            ref={topElementRef}
+          />
           {toUIMessages(messages.results ?? [])?.map((message) => (
             <AIMessage
               from={message.role === 'user' ? 'user' : 'assistant'}
@@ -127,6 +143,13 @@ export default function WidgetChatScreen() {
               <AIMessageContent>
                 <AIResponse>{message.content}</AIResponse>
               </AIMessageContent>
+              {message.role === 'assistant' && (
+                <DicebearAvatar
+                  seed="assistant"
+                  imageUrl="/logo.svg"
+                  badgeImageUrl="/logo.svg"
+                />
+              )}
             </AIMessage>
           ))}
         </AIConversationContent>
