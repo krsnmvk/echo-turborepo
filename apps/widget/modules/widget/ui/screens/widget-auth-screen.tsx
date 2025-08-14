@@ -20,6 +20,7 @@ import { Doc } from '@workspace/backend/convex/_generated/dataModel';
 import {
   contactSessionIdAtomFamily,
   organizationIdAtom,
+  screenAtom,
 } from '../../atoms/widget-atom';
 
 const formScema = z.object({
@@ -31,6 +32,8 @@ const formScema = z.object({
 
 export default function WidgetAuthScreen() {
   const organizationId = useAtomValue(organizationIdAtom);
+
+  const setScreen = useSetAtom(screenAtom);
 
   const setContactSessionId = useSetAtom(
     contactSessionIdAtomFamily(organizationId!)
@@ -71,6 +74,8 @@ export default function WidgetAuthScreen() {
     });
 
     setContactSessionId(contactSessionId);
+
+    setScreen('selection');
   }
 
   const isDisabled = form.formState.disabled;
