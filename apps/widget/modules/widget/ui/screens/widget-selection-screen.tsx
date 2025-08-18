@@ -14,6 +14,7 @@ import { ChevronRight, MessageSquare } from 'lucide-react';
 import { useMutation } from 'convex/react';
 import { api } from '@workspace/backend/convex/_generated/api';
 import { useTransition } from 'react';
+import WidgetFooter from '../components/widget-footer';
 
 export default function WidgetSelectionScreen() {
   const [isPending, startTransition] = useTransition();
@@ -79,6 +80,7 @@ export default function WidgetSelectionScreen() {
           <ChevronRight />
         </Button>
       </div>
+      <WidgetFooter />
     </>
   );
 }
