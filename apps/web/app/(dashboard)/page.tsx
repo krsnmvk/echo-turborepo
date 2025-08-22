@@ -6,8 +6,8 @@ import { api } from '@workspace/backend/convex/_generated/api';
 import { OrganizationSwitcher } from '@clerk/nextjs';
 
 export default function Page() {
-  const users = useQuery(api.users.getMany);
-  const create = useMutation(api.users.create);
+  const users = useQuery(api.public.users.getMany);
+  const create = useMutation(api.public.users.create);
 
   return (
     <div className="flex items-center justify-center min-h-svh">
