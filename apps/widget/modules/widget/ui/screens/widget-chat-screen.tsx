@@ -30,7 +30,6 @@ import {
   AIMessageContent,
 } from '@workspace/ui/components/ai/message';
 import { AIResponse } from '@workspace/ui/components/ai/response';
-import {} from '@workspace/ui/components/ai/suggestion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField } from '@workspace/ui/components/form';
