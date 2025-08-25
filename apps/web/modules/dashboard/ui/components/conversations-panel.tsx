@@ -47,7 +47,6 @@ export default function ConversationsPanel() {
   const {
     canLoadMore,
     handleLoadMore,
-    isExhausted,
     isLoadingFirstPage,
     isLoadingMore,
     topElementRef,
@@ -119,18 +118,18 @@ export default function ConversationsPanel() {
 
               return (
                 <Link
-                  href={`conversations/${conversation._id}`}
+                  href={`/conversations/${conversation._id}`}
                   key={conversation._id}
                   className={cn(
                     'relative flex leading-tight items-start gap-3 px-4 py-5 border-b text-sm hover:bg-accent hover:text-accent-foreground',
-                    pathname === `conversations/${conversation._id}` &&
+                    pathname === `/conversations/${conversation._id}` &&
                       'text-accent-foreground bg-accent'
                   )}
                 >
                   <div
                     className={cn(
                       '-translate-y-1/2 top-1/2 left-0 h-[64%] absolute w-1 rounded-r-full opacity-0 bg-neutral-300 transition-opacity',
-                      pathname === `conversations/${conversation._id}` &&
+                      pathname === `/conversations/${conversation._id}` &&
                         'opacity-100'
                     )}
                   />
