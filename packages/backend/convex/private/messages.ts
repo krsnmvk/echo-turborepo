@@ -1,9 +1,11 @@
 import { ConvexError, v } from 'convex/values';
-import { mutation, query } from '../_generated/server';
+import { action, mutation, query } from '../_generated/server';
 import { supportAgent } from '../system/ai/agents/supportAgent';
 import { paginationOptsValidator } from 'convex/server';
 import { saveMessage } from '@convex-dev/agent';
 import { components } from '../_generated/api';
+import { generateText } from 'ai';
+import { google } from '@ai-sdk/google';
 
 export const create = mutation({
   args: {
@@ -114,5 +116,46 @@ export const getMany = query({
     });
 
     return paginated;
+  },
+});
+
+export const enhanceResponse = action({
+  args: { promt: v.string() },
+
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new ConvexError({
+        code: 'UNAUTHORIZED',
+        message: 'Identity not found',
+      });
+    }
+
+    const orgId = identity.orgId as string;
+
+    if (!orgId) {
+      throw new ConvexError({
+        code: 'UNAUTHORIZED',
+        message: 'Organization not found',
+      });
+    }
+
+    const response = await generateText({
+      model: google.chat('gemini-2.5-pro'),
+      messages: [
+        {
+          role: 'system',
+          content:
+            "Enhance the operator's message to be more professional, clear, and helpful while maintaning their intent and key information.",
+        },
+        {
+          role: 'user',
+          content: args.promt,
+        },
+      ],
+    });
+
+    return response.text;
   },
 });

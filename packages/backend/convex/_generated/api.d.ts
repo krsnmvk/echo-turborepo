@@ -18,6 +18,8 @@ import type * as public_users from "../public/users.js";
 import type * as system_ai_agents_supportAgent from "../system/ai/agents/supportAgent.js";
 import type * as system_contactSessions from "../system/contactSessions.js";
 import type * as system_conversations from "../system/conversations.js";
+import type * as system_tools_escalateConversation from "../system/tools/escalateConversation.js";
+import type * as system_tools_resolveConversation from "../system/tools/resolveConversation.js";
 
 import type {
   ApiFromModules,
@@ -44,6 +46,8 @@ declare const fullApi: ApiFromModules<{
   "system/ai/agents/supportAgent": typeof system_ai_agents_supportAgent;
   "system/contactSessions": typeof system_contactSessions;
   "system/conversations": typeof system_conversations;
+  "system/tools/escalateConversation": typeof system_tools_escalateConversation;
+  "system/tools/resolveConversation": typeof system_tools_resolveConversation;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 
